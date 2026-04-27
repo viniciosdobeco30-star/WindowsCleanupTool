@@ -32,11 +32,15 @@ try {
 
     # Copy the cleanup script
     $ScriptSource = Join-Path $PSScriptRoot "cleanup.bat"
+    if ([string]::IsNullOrEmpty($PSScriptRoot)) {
+        # If running from extracted ZIP, use current directory
+        $ScriptSource = ".\cleanup.bat"
+    }
     if (Test-Path $ScriptSource) {
         Copy-Item $ScriptSource $ScriptPath -Force
         if (-not $Silent) { Write-Host "Script copied to: $ScriptPath" -ForegroundColor Green }
     } else {
-        throw "cleanup.bat not found in the same directory as install.ps1"
+        throw "cleanup.bat not found. Make sure cleanup.bat is in the same directory as install.ps1"
     }
 
     # Add to system PATH
