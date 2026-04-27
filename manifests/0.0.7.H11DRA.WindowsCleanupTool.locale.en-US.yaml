@@ -1,0 +1,61 @@
+# Created with YamlCreate.ps1 v2.4.1
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+
+PackageIdentifier: H11DRA.WindowsCleanupTool
+PackageVersion: 0.0.7
+PackageLocale: en-US
+Publisher: H11DRA
+PublisherUrl: https://github.com/H11DRA
+PublisherSupportUrl: https://github.com/H11DRA/WindowsCleanupTool/issues
+Author: H11DRA
+PackageName: Windows Cleanup Tool
+PackageUrl: https://github.com/H11DRA/WindowsCleanupTool
+License: MIT
+LicenseUrl: https://github.com/H11DRA/WindowsCleanupTool/blob/main/LICENSE
+Copyright: Copyright (c) H11DRA
+ShortDescription: Advanced Windows cleanup and performance optimization tool
+Description: |-
+  Windows Cleanup Tool is a comprehensive utility for Windows system maintenance and performance optimization.
+  
+  Features:
+  - Quick and full system cleanup (temporary files, recycle bin, prefetch)
+  - Create system restore points for safety
+  - Drive optimization (defrag/trim)
+  - Performance mode tweaks (power plans, services optimization)
+  - Malware scanning with Microsoft Defender
+  - Hardware information monitoring
+  - Network diagnostic tools
+  - Speed testing capabilities
+  - System report generation
+  
+  The tool supports both English and Portuguese languages and requires administrator privileges to function properly.
+Moniker: windows-cleanup-tool
+Tags:
+- cleanup
+- performance
+- optimization
+- maintenance
+- system
+- tools
+- utilities
+- windows
+- admin
+- temporary-files
+- defrag
+- malware-scan
+ReleaseNotes: |-
+  Initial release v0.0.7:
+  - Bilingual support (English/Portuguese)
+  - Complete system cleanup functionality
+  - Performance optimization features
+  - Network and hardware tools
+  - System reporting capabilities
+  - Administrator privilege detection
+ReleaseNotesUrl: https://github.com/H11DRA/WindowsCleanupTool/releases/tag/v0.0.7
+PurchaseUrl: https://github.com/H11DRA/WindowsCleanupTool
+InstallationNotes: Requires administrator privileges to run. Run as administrator for full functionality.
+Documentations:
+- DocumentLabel: README
+  DocumentUrl: https://github.com/H11DRA/WindowsCleanupTool/blob/main/README.md
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

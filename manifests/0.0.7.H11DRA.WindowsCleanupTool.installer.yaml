@@ -1,0 +1,22 @@
+# Created with YamlCreate.ps1 v2.4.1
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.6.0.schema.json
+
+PackageIdentifier: H11DRA.WindowsCleanupTool
+PackageVersion: 0.0.7
+Platform:
+- Windows.Desktop
+MinimumOSVersion: 10.0.0.0
+InstallerType: zip
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+UpgradeBehavior: install
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/H11DRA/WindowsCleanupTool/releases/download/v0.0.7/WindowsCleanupTool-0.0.7.zip
+  InstallerSha256: 02543CCDD0FFBE290717F5AA7F8F9E2261132DA8BEA591F6F5F48546D7476601
+  InstallerSwitches:
+    Custom: /VERYSILENT
+ManifestType: installer
+ManifestVersion: 1.6.0

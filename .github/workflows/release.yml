@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+      
+    - name: Create ZIP package
+      run: |
+        Compress-Archive -Path 'cleanup.bat','install.ps1','README.md','LICENSE' -DestinationPath 'WindowsCleanupTool-${{ github.ref_name }}.zip' -Force
+        
+    - name: Calculate SHA256
+      id: sha256
+      run: |
+        $hash = Get-FileHash 'WindowsCleanupTool-${{ github.ref_name }}.zip' -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+        echo "sha256=$hash" >> $env:GITHUB_OUTPUT
+        
+    - name: Update installer manifest
+      run: |
+        $installerPath = "manifests\${{ github.ref_name }}.H11DRA.WindowsCleanupTool.installer.yaml"
+        (Get-Content $installerPath) -replace 'InstallerSha256: .*', "InstallerSha256: ${{ steps.sha256.outputs.sha256 }}" | Set-Content $installerPath
+        
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Windows Cleanup Tool ${{ github.ref_name }}
+        body: |
+          ## Windows Cleanup Tool ${{ github.ref_name }}
+          
+          ### Installation
+          ```bash
+          winget install H11DRA.WindowsCleanupTool
+          ```
+          
+          ### Manual Installation
+          1. Download `WindowsCleanupTool-${{ github.ref_name }}.zip`
+          2. Extract to a folder
+          3. Run `install.ps1` as Administrator
+          
+          ### Features
+          - Bilingual support (English/Portuguese)
+          - System cleanup and optimization
+          - Performance tweaks
+          - Network and hardware tools
+          - System reporting
+          
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./WindowsCleanupTool-${{ github.ref_name }}.zip
+        asset_name: WindowsCleanupTool-${{ github.ref_name }}.zip
+        asset_content_type: application/zip
